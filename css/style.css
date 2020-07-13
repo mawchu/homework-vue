@@ -38,6 +38,7 @@ p, h1, h2, h3, h4, h5 {
 .title.article {
   font-size: 30px;
   color: #8A82CC;
+  margin: 0 0 20px 0;
 }
 
 .header-bg {
@@ -73,7 +74,7 @@ p, h1, h2, h3, h4, h5 {
   }
 }
 
-.card {
+.select-zone .card {
   border: 0px;
   -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
           box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
@@ -81,9 +82,25 @@ p, h1, h2, h3, h4, h5 {
   padding: 0;
 }
 
-.card .card-body.article {
+.select-zone .card .card-body.article {
   margin: 0;
   padding: 0;
+}
+
+.items .card {
+  border: 0px;
+  padding: 10px;
+}
+
+.items .card .card-body {
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 0;
+}
+
+.items .card .card-body.article {
+  margin: 0;
 }
 
 .btn {
@@ -93,19 +110,19 @@ p, h1, h2, h3, h4, h5 {
   color: #ffffff;
 }
 
-.btn.bg-purple {
+.bg-purple {
   background-color: #8A82CC;
 }
 
-.btn.bg-skin {
+.bg-skin {
   background-color: #FFA782;
 }
 
-.btn.bg-yellow {
+.bg-yellow {
   background-color: #F5D105;
 }
 
-.btn.bg-blue {
+.bg-blue {
   background-color: #559AC8;
 }
 
@@ -149,10 +166,17 @@ p, h1, h2, h3, h4, h5 {
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 10px;
+  padding: 20px;
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.6)));
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6));
   color: #ffffff;
+}
+
+.data-pic img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .data-info {
@@ -165,5 +189,11 @@ p, h1, h2, h3, h4, h5 {
 
 .data-info p img {
   padding-right: 10px;
+}
+
+.footer {
+  width: 100%;
+  height: 90px;
+  margin-top: 50px;
 }
 /*# sourceMappingURL=style.css.map */

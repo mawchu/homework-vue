@@ -50,6 +50,7 @@ p,h1,h2,h3,h4,h5{
     &.article{
         font-size: 30px;
         color:$purple;
+        margin:0 0 20px 0;
     }
     color:$white;
 }
@@ -79,15 +80,32 @@ p,h1,h2,h3,h4,h5{
        }
     }
 }
-.card{
-    border:0px;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2);
-    margin:0;
-    padding:0;
-    .card-body{
-        &.article{
-            margin:0;
-            padding:0; 
+.select-zone{
+    .card{
+        border:0px;
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,.2);
+        margin:0;
+        padding:0;
+        .card-body{
+            &.article{
+                margin:0;
+                padding:0; 
+            }
+        }
+    }
+}
+
+.items{
+    .card{
+        border:0px;
+        padding:10px;
+        .card-body{
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,.2);
+            border-radius:5px;
+            padding:0;
+            &.article{
+                margin:0;
+            }
         }
     }
 }
@@ -96,19 +114,22 @@ p,h1,h2,h3,h4,h5{
     margin:14px 11px;
     width: 130px;
     color:$white;
-    &.bg-purple{
+}
+.bg{
+    &-purple{
         background-color: $purple;
     }
-    &.bg-skin{
+    &-skin{
         background-color: $skin;
     }
-    &.bg-yellow{
+    &-yellow{
         background-color: $yellow;
     }
-    &.bg-blue{
+    &-blue{
         background-color: $blue;
     }
 }
+
 .divider{
     height:2px;
     background-image:linear-gradient(to right,$blue 0%,$blue 50%,transparent 50%);
@@ -143,9 +164,14 @@ p,h1,h2,h3,h4,h5{
         bottom:0;
         left:0;
         width: 100%;
-        padding:10px;
+        padding:20px;
         background: linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,.6));
         color:$white;
+    }
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 }
 .data-info{
@@ -156,4 +182,10 @@ p,h1,h2,h3,h4,h5{
         }
     }
     padding:20px;
+}
+
+.footer{
+    width: 100%;
+    height: 90px;
+    margin-top: 50px;
 }
