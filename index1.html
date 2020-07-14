@@ -14,10 +14,10 @@
   </head>
   <body>
       <div id="app">
-        <div class="bookmark position-fixed" @click="content = 'bookmark'" v-if="content == 'data'" >
+        <div class="bookmark position-fixed go" @click="content = 'bookmark'" v-if="content == 'data'" >
           <i class="fas fa-bookmark"></i>
         </div>
-        <div class="bookmark position-fixed" @click="content = 'data'" v-if="content == 'bookmark'" >
+        <div class="bookmark skin position-fixed" @click="content = 'data'" v-if="content == 'bookmark'" >
           <i class="fas fa-book"></i>
         </div>
         <header class="position-relative ch-font regular">
@@ -75,18 +75,19 @@
         </article>
         <div class="pagination d-flex justify-content-center"  v-if="content == 'data'">
           <div class="d-flex">
-            <p @click="currentPage--"> &lt; prev</p>
-            <p v-for="page in pageArr.length" v-if="page-1 > currentPage-3 && page-1 < currentPage+3" @click="currentPage = page-1">{{ page }}</p>
-            <p @click="currentPage++">next &gt;</p>
+            <p @click="currentPage != 0 ? currentPage-- :''"> &lt; prev</p>
+            <p v-for="page in pageArr.length" v-if="page-1 > currentPage-3 && page-1 < currentPage+3" @click="currentPage = page-1" :class="{ 'active' : page-1 == currentPage , 'ch-font': page-1 == currentPage , 'bold': page-1 == currentPage}">{{ page }}</p>
+            <p @click="currentPage != pageArr.length-1 ? currentPage++:''" :class="">next &gt;</p>
           </div>
         </div>
 
         <div class="container book d-flex flex-wrap justify-content-center ch-font regular" v-if="content == 'bookmark'">
           <h5 class="title article-y text-center">收藏列表</h5>
           <div class="d-flex flex-wrap items">
+            <!-- 跑迴圈的卡片 -->
             <card v-for="(item, index) in bookArr" :zone-data="item" :key="index" @bookitem="bookOut">
               <template v-slot:bookmark>
-                <i class="fas fa-bookmark"></i>
+                <i class="fas fa-bookmark fontcolor-yellow"></i>
               </template>
             </card>
           </div>
@@ -110,8 +111,8 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script type="text/x-template" id="card">
-      <div class="card col-12 col-md-6">
-        <div class="card-body article">
+      <div class="card move col-12 col-md-6">
+        <div class="card-body article position-relative">
           <figure class="data-pic position-relative">
             <img :src="zoneData.Picture1" alt="">
             <div class="icon position-absolute" @click.prevent="bookIn">
@@ -126,7 +127,7 @@
               </div>
             </div>
           </figure>
-          <div class="data-info text-left">
+          <div class="data-info text-left" v-if="!more">
             <p>
               <img src="assets/icons_clock.png" alt="">
               {{ zoneData.Opentime }}
@@ -142,9 +143,15 @@
                 <img src="assets/icons_tag.png" alt="" v-if="zoneData.Ticketinfo !=''">{{ zoneData.Ticketinfo }}
               </p>
             </div>
-            <div class="text-center" @click="">more ></div>
           </div>
-          
+          <div class="data-info text-left description" v-if="more">
+            <h5 class="text-center">景點簡介</h5>
+            <p>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ zoneData.Description }}
+            </p>
+          </div>
+          <div class="text-center more ch-font bold fontcolor-blue position-absolute" @click="more = false" v-if="more"> < back</div>
+          <div class="text-center more ch-font bold fontcolor-blue position-absolute" @click="more = true" v-if="!more">more ></div>
         </div>
       </div>
     </script>
@@ -160,6 +167,11 @@
         // })
         Vue.component('card',{
           props:['zoneData'],
+          data:function(){
+            return {
+              more:false
+            }
+          },
           template:'#card',
           filters:{
             filterPhone:function(n){
@@ -184,7 +196,7 @@
             currentPage:0,
             pageNum:10,
             bookArr: JSON.parse(localStorage.getItem('bookmarked'))||[],
-            content:'data',
+            content:'data'
             
           },
           mounted(){
@@ -250,13 +262,16 @@
                 return item._id;
                 //收藏名冊
               })
-
-              if(vm.bookArr.length == 0 || bookId.indexOf(bookItem._id) === -1 ){
+                //若收藏清單為空 或者該收藏不在清單中 就新增進去
+              if( vm.bookArr.length == 0 || bookId.indexOf(bookItem._id) === -1 ){
                 vm.bookArr.push(bookItem)
+                //重設記憶體
                 localStorage.setItem('bookmarked',JSON.stringify(vm.bookArr))
               }else{
+                //若該收藏在清單中 就將自己移除
                 let cancelIndex = bookId.indexOf(bookItem._id);
                 vm.bookArr.splice(cancelIndex,1)
+                //重設記憶體
                 localStorage.setItem('bookmarked',JSON.stringify(vm.bookArr))
               }
               
