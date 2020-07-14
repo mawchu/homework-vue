@@ -16,6 +16,20 @@ $skin:#FFA782;
 $yellow:#F5D105;
 $blue:#559AC8;
 
+.fontcolor{
+    &-purple{
+        color:$purple;
+    }
+    &-skin{
+        color:$skin;
+    }
+    &-yellow{
+        color:$yellow;
+    }
+    &-blue{
+        color:$blue;
+    }
+}
 
 //RWD
 $mobile-media:500px;
@@ -56,6 +70,12 @@ figure{
         color:$purple;
         margin:0 0 20px 0;
     }
+    &.article-y{
+        font-size: 30px;
+        color:$yellow;
+        margin:40px;
+
+    }
     color:$white;
 }
 .header-bg{
@@ -71,6 +91,7 @@ figure{
     }
 }
 
+
 .select-zone{
     margin: 0 auto;
     select.district-select.form-control{
@@ -83,8 +104,6 @@ figure{
             width:100%;
         }
     }
-}
-.select-zone{
     .card{
         border:0px;
         box-shadow: 0 1px 3px 0 rgba(0,0,0,.2);
@@ -114,10 +133,13 @@ figure{
     .card{
         border:0px;
         padding:10px;
+        background-color: transparent;
         .card-body{
             box-shadow: 0 1px 3px 0 rgba(0,0,0,.2);
             border-radius:5px;
             padding:0;
+            background-color: $white;
+
             &.article{
                 margin:0;
             }
@@ -215,5 +237,48 @@ figure{
 .pagination{
     p{
         margin:40px 10px 0 10px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}
+
+.pageselect{
+    margin:0 0 20px 0;
+}
+
+.icon{
+    top:0;
+    right:0;
+    padding:10px;
+    font-size: 24px;
+    color:$yellow;
+    &:hover{
+        cursor: pointer;
+    }
+    i{
+        text-shadow: 0 0 10px #222;
+    }
+    
+}
+.bookmark{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: $yellow;
+    text-align: center;
+    line-height: 50px;
+    right:20px;
+    bottom:20px;
+    z-index:99;
+    &:hover{
+        cursor: pointer;
+    }
+}
+.book{
+    .card{
+        figure{
+            border:1px solid $white;
+        }
     }
 }

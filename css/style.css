@@ -4,7 +4,28 @@
           box-sizing: border-box;
 }
 
+.fontcolor-purple {
+  color: #8A82CC;
+}
+
+.fontcolor-skin {
+  color: #FFA782;
+}
+
+.fontcolor-yellow {
+  color: #F5D105;
+}
+
+.fontcolor-blue {
+  color: #559AC8;
+}
+
 p, h1, h2, h3, h4, h5 {
+  margin: 0;
+  padding: 0;
+}
+
+figure {
   margin: 0;
   padding: 0;
 }
@@ -41,6 +62,12 @@ p, h1, h2, h3, h4, h5 {
   margin: 0 0 20px 0;
 }
 
+.title.article-y {
+  font-size: 30px;
+  color: #F5D105;
+  margin: 40px;
+}
+
 .header-bg {
   width: 100%;
   height: 380px;
@@ -68,6 +95,11 @@ p, h1, h2, h3, h4, h5 {
   border: 2px solid #ffffff;
 }
 
+.select-zone select.district-select.form-control option {
+  max-height: 250px;
+  overflow: auto;
+}
+
 @media all and (max-width: 500px) {
   .select-zone select.district-select.form-control {
     width: 100%;
@@ -82,6 +114,29 @@ p, h1, h2, h3, h4, h5 {
   padding: 0;
 }
 
+@media all and (max-width: 500px) {
+  .select-zone .card .card-body {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .select-zone .card .card-body div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+
 .select-zone .card .card-body.article {
   margin: 0;
   padding: 0;
@@ -90,6 +145,7 @@ p, h1, h2, h3, h4, h5 {
 .items .card {
   border: 0px;
   padding: 10px;
+  background-color: transparent;
 }
 
 .items .card .card-body {
@@ -97,6 +153,7 @@ p, h1, h2, h3, h4, h5 {
           box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 0;
+  background-color: #ffffff;
 }
 
 .items .card .card-body.article {
@@ -195,5 +252,62 @@ p, h1, h2, h3, h4, h5 {
   width: 100%;
   height: 90px;
   margin-top: 50px;
+}
+
+.footer h5 {
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.footer p {
+  color: #F5D105;
+}
+
+.pagination p {
+  margin: 40px 10px 0 10px;
+}
+
+.pagination p:hover {
+  cursor: pointer;
+}
+
+.pageselect {
+  margin: 0 0 20px 0;
+}
+
+.icon {
+  top: 0;
+  right: 0;
+  padding: 10px;
+  font-size: 24px;
+  color: #F5D105;
+}
+
+.icon:hover {
+  cursor: pointer;
+}
+
+.icon i {
+  text-shadow: 0 0 10px #222;
+}
+
+.bookmark {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #F5D105;
+  text-align: center;
+  line-height: 50px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 99;
+}
+
+.bookmark:hover {
+  cursor: pointer;
+}
+
+.book .card figure {
+  border: 1px solid #ffffff;
 }
 /*# sourceMappingURL=style.css.map */
