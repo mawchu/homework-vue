@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>vue extend 練習</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+    <style>
+        .sold{
+            opacity: .7;
+        }
+    </style>
+  </head>
+  <body>
+      <div class="container pt-5" id="app">
+        <h3>熱賣中</h3>
+        <div class="d-flex flex-wrap">
+            <product v-for="(item, index) in list"></product>
+        </div>
+        
+        <hr>
+        <h3>已售完</h3>
+        <div class="d-flex flex-wrap">
+            <product-sold></product-sold>
+        </div>
+        
+      </div>
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script type="text/x-template" id="product">
+        <div class="card px-2" style="width: 18rem;">
+            <img src="https://images.unsplash.com/photo-1543573852-1a71a6ce19bc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5>甜點A</h5>
+                    <p class="text-muted">庫存 35 個</p>
+                </div>
+                <div class="float-right mt-3">建議售價 <strong>$60</strong> </div>
+                <div class="w-100">
+                    <button class="btn btn-danger w-100">購買</button>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="product-sold">
+        <div class="card  px-2" style="width: 18rem;">
+            <img src="https://images.unsplash.com/photo-1543573852-1a71a6ce19bc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5>甜點A</h5>
+                    <p class="text-muted">庫存 35 個</p>
+                </div>
+                <div class="float-right mb-3">建議售價 <strong>$60</strong> </div>
+                <div class="w-100">
+                    <button class="btn btn-secondary w-100">已售完</button>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script>
+
+
+        Vue.component('product',{
+            template:'#product',
+            props:['product'],
+        })
+        Vue.component('product-sold',{
+            template:'#product-sold',
+            props:['product']
+        })
+        let app = new Vue({
+            el:'#app',
+            data:{
+                list:[
+                    {
+                        title:"甜點A",
+                        img:"https://images.unsplash.com/photo-1543573852-1a71a6ce19bc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+                        inStock:35,
+                        price:60
+                    },
+                    {
+                        title:"甜點B",
+                        img:"https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+                        inStock:0,
+                        price:35
+                    },
+                    {
+                        title:"甜點C",
+                        img:"https://images.unsplash.com/photo-1543255006-d6395b6f1171?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80",
+                        inStock:20,
+                        price:47
+                    },
+                    {
+                        title:"甜點D",
+                        img:"https://images.unsplash.com/photo-1541599188778-cdc73298e8fd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=679&q=80",
+                        inStock:15,
+                        price:78
+                    },
+                    {
+                        title:"甜點E",
+                        img:"https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+                        inStock:0,
+                        price:66
+                    },
+                    {
+                        title:"甜點F",
+                        img:"https://images.unsplash.com/photo-1472555950005-7fa40ece7f6a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1100&q=80",
+                        inStock:8,
+                        price:100
+                    },
+                    {
+                        title:"甜點G",
+                        img:"https://images.unsplash.com/photo-1488477181946-6428a0291777?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+                        inStock:2,
+                        price:55
+                    },
+                    {
+                        title:"甜點H",
+                        img:"https://images.unsplash.com/photo-1486427944299-d1955d23e34d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
+                        inStock:0,
+                        price:80
+                    },
+                    {
+                        title:"甜點I",
+                        img:"https://images.unsplash.com/photo-1574085733277-851d9d856a3a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1055&q=80",
+                        inStock:35,
+                        price:48
+                    },
+                    {
+                        title:"甜點J",
+                        img:"https://images.unsplash.com/photo-1533910534207-90f31029a78e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+                        inStock:0,
+                        price:47
+                    }
+                ]
+            }
+        })
+    </script>
+  </body>
+</html>
