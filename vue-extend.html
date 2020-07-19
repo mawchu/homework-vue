@@ -10,22 +10,80 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+        .container{
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        h3, h5{
+            color:tomato;
+        }
         .sold{
             opacity: .7;
+        }
+        .col-12, .col-md-4{
+            padding-left:0;
+            padding-right: 0;
+        }
+        .card{
+            border: 1px solid transparent;
+        }
+        .card-body{
+            box-shadow: 0 0 5px 1px rgba(126, 105, 105, 0.2);
+            padding:0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .card-body figure{
+            height: 220px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .card-body figure img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .card-content{
+            padding:20px;
+        }
+        strong{
+            font-size: 25px;
+        }
+        .text-muted{
+            font-size: 12px;
+        }
+        blockquote{
+            font-size: 12px;
+            font-weight: 200;
+            color:rgb(236, 157, 157);
         }
     </style>
   </head>
   <body>
       <div class="container pt-5" id="app">
-        <h3>熱賣中</h3>
+        <div class="text-center">
+            <h3>熱賣中</h3>
+            <p class="text-muted">Popular desserts are all here.</p>
+        </div>
         <div class="d-flex flex-wrap">
-            <product v-for="(item, index) in list"></product>
+            <product 
+            v-for="(item, index) in list" 
+            :key="index" 
+            :product="item" 
+            v-if="item.inStock >0"></product>
         </div>
         
         <hr>
-        <h3>已售完</h3>
-        <div class="d-flex flex-wrap">
-            <product-sold></product-sold>
+        <div class="text-center pt-3">
+            <h3>已售完</h3>
+            <p class="text-muted">Oops! Desserts here were sell out.</p>
+        </div>
+        <div class="d-flex flex-wrap sold">
+            <product-sold 
+            v-for="(item, index) in list" 
+            :key="index" 
+            :product="item" 
+            v-if="item.inStock == 0"></product-sold>
         </div>
         
       </div>
@@ -40,48 +98,75 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script type="text/x-template" id="product">
-        <div class="card px-2" style="width: 18rem;">
-            <img src="https://images.unsplash.com/photo-1543573852-1a71a6ce19bc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="">
+        <div class="card p-3 col-md-6 col-lg-4">
             <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <h5>甜點A</h5>
-                    <p class="text-muted">庫存 35 個</p>
+                <figure>
+                    <img :src="product.img" class="card-img-top" alt="">
+                </figure>
+                <div class="card-content">
+                    <div class="d-flex justify-content-between">
+                        <h5>{{ product.title }} </h5>
+                        <p class="text-muted">庫存 {{ product.inStock }} 個</p>
+                    </div>
+                    <div class="float-right mb-3">建議售價 <strong>$ {{ product.price }}</strong> </div>
+                    <div class="w-100">
+                        <button class="btn btn-danger w-100">購買</button>
+                    </div>
+                    <blockquote v-html="notice" class="pt-4 text-center"></blockquote>
                 </div>
-                <div class="float-right mt-3">建議售價 <strong>$60</strong> </div>
-                <div class="w-100">
-                    <button class="btn btn-danger w-100">購買</button>
-                </div>
+                
             </div>
         </div>
     </script>
 
     <script type="text/x-template" id="product-sold">
-        <div class="card  px-2" style="width: 18rem;">
-            <img src="https://images.unsplash.com/photo-1543573852-1a71a6ce19bc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="">
+        <div class="card p-3 col-md-6 col-lg-4">
             <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <h5>甜點A</h5>
-                    <p class="text-muted">庫存 35 個</p>
+                <figure>
+                    <img :src="product.img" class="card-img-top" alt="">
+                </figure>
+                <div class="card-content">
+                    <div class="d-flex justify-content-between">
+                        <h5>{{ product.title }}</h5>
+                        <p class="text-muted">庫存 {{ product.inStock }} 個</p>
+                    </div>
+                    <div class="float-right mb-3">建議售價 <strong>$ {{ product.price }}</strong> </div>
+                    <div class="w-100">
+                        <button class="btn btn-secondary w-100" disabled>已售完</button>
+                    </div>
+                    <blockquote v-html="notice" class="pt-4 text-center"></blockquote>
                 </div>
-                <div class="float-right mb-3">建議售價 <strong>$60</strong> </div>
-                <div class="w-100">
-                    <button class="btn btn-secondary w-100">已售完</button>
-                </div>
+                
             </div>
         </div>
     </script>
 
     <script>
-
+        let newExtend = Vue.extend({
+            data:function(){
+                return{
+                    btnMsg:'購買',
+                    notice:'當天製作完成的食品建議放置冰箱冷藏，<br>並且於三天內食用完畢'
+                }
+            },
+            props:['product'],
+            template:'#product'
+        })
 
         Vue.component('product',{
-            template:'#product',
-            props:['product'],
+            extends: newExtend
         })
         Vue.component('product-sold',{
+            data:function(){
+                return{
+                    btnMsg:'已售完',
+                    notice:'商品熱賣一空，謝謝支持'
+                }
+            },
             template:'#product-sold',
-            props:['product']
+            extends: newExtend
         })
+
         let app = new Vue({
             el:'#app',
             data:{
@@ -95,7 +180,7 @@
                     {
                         title:"甜點B",
                         img:"https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
-                        inStock:0,
+                        inStock:2,
                         price:35
                     },
                     {
@@ -107,19 +192,19 @@
                     {
                         title:"甜點D",
                         img:"https://images.unsplash.com/photo-1541599188778-cdc73298e8fd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=679&q=80",
-                        inStock:15,
+                        inStock:0,
                         price:78
                     },
                     {
                         title:"甜點E",
                         img:"https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-                        inStock:0,
+                        inStock:8,
                         price:66
                     },
                     {
                         title:"甜點F",
                         img:"https://images.unsplash.com/photo-1472555950005-7fa40ece7f6a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1100&q=80",
-                        inStock:8,
+                        inStock:0,
                         price:100
                     },
                     {
